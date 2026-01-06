@@ -14,6 +14,7 @@
       <button onclick="showView('reflection')" class="nav-btn">Hoy</button>
       <button onclick="showView('history')" class="nav-btn">Diario</button>
       <button onclick="showView('settings')" class="nav-btn">⚙</button>
+      <button onclick="showView('missions')" class="nav-btn">Misiones</button>
     </nav>
   </header>
 
@@ -60,6 +61,34 @@
         <h2>Ajustes</h2>
         <button onclick="resetData()" class="danger-btn">Borrar todo el progreso</button>
       </section>
+      <section id="view-missions" class="view">
+        <div class="rank-container">
+            <div class="rank-icon" id="rank-visual">🛡️</div>
+            <div class="rank-info">
+                <h2 id="rank-title">Cargando Rango...</h2>
+                <p>Misiones completadas: <span id="mission-count">0</span></p>
+                <div class="progress-bar">
+                    <div id="rank-progress" class="progress-fill" style="width: 0%"></div>
+                </div>
+                <small id="next-rank-msg">El camino a la virtud comienza ahora.</small>
+            </div>
+        </div>
+        <div id="missions-grid" class="missions-grid">
+            </div>
+      </section>
+      </main> ```
+
+#### 3. Conecta el Cerebro (Script)
+Ve al **final absoluto** de tu archivo HTML, justo antes de la etiqueta `</body>`. Verás tus otros scripts. Agrega el nuevo ahí.
+
+```html
+  <script src="reflections.js"></script>
+  <script src="app.js"></script>
+  
+  <script src="missions.js"></script>
+  
+</body>
+</html>
     </main>
   </div>
 
