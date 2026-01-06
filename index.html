@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StoicQuest - Oficial</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">❧ StoicQuest ❧</div>
+    <nav class="nav">
+      <button onclick="showView('landing')" class="nav-btn">Inicio</button>
+      <button onclick="showView('reflection')" class="nav-btn">Hoy</button>
+      <button onclick="showView('history')" class="nav-btn">Diario</button>
+      <button onclick="showView('settings')" class="nav-btn">⚙</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="streak-card">
+        <span style="font-size: 2rem;">🔥</span>
+        <h2 id="streak-count">0</h2>
+        <p>Días de racha</p>
+        <div id="rank-label" style="font-weight: bold; color: #ffd700;">Novato</div>
+      </div>
+      <button onclick="handlePanic()" class="panic-button">🆘 SOS ESTOICO</button>
+    </aside>
+
+    <main class="content">
+      <section id="view-landing" class="view active">
+        <h1>Bienvenido, buscador de virtud.</h1>
+        <p>La disciplina es la clave de la libertad.</p>
+        <button onclick="showView('reflection')" class="cta-btn">Comenzar hoy</button>
+      </section>
+
+      <section id="view-reflection" class="view">
+        <div class="reflection-card">
+          <button onclick="toggleFocusMode()" id="focus-btn" class="btn-focus-mode">🧘 Entrar en Modo Enfoque</button>
+          <blockquote id="quote-text">Cargando frase...</blockquote>
+          <cite id="quote-author"></cite>
+          <div class="explanation-box"><p id="quote-explanation"></p></div>
+          <h4 id="quote-question"></h4>
+          <textarea id="reflection-input" placeholder="Escribe tu reflexión aquí..."></textarea>
+          <div style="display: flex; gap: 10px;">
+            <button onclick="saveReflection()" class="primary-btn">Guardar</button>
+            <button onclick="nextReflection()" class="secondary-btn">Siguiente Frase</button>
+          </div>
+          <p id="save-feedback"></p>
+        </div>
+      </section>
+
+      <section id="view-history" class="view">
+        <h2>Tu Diario de Reflexiones</h2>
+        <div id="history-list" class="history-container"></div>
+      </section>
+
+      <section id="view-settings" class="view">
+        <h2>Ajustes</h2>
+        <button onclick="exportDiary()" class="secondary-btn">Exportar Diario (.txt)</button>
+        <br><br>
+        <button onclick="resetData()" class="danger-btn">⚠️ Borrar todo el progreso</button>
+      </section>
+    </main>
+  </div>
+
+  <audio id="focus-audio" loop preload="auto"><source src="https://www.soundjay.com/nature/rain-07.mp3" type="audio/mpeg"></audio>
+  <audio id="sos-audio" preload="auto"><source src="https://codeskulptor-demos.commondatastorage.googleapis.com/pang/arrow.mp3" type="audio/mpeg"></audio>
+  <audio id="paper-audio" preload="auto"><source src="https://www.soundjay.com/misc/sounds/paper-flip-1.mp3" type="audio/mpeg"></audio>
+
+  <script src="reflections.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

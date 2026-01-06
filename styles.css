@@ -1,0 +1,87 @@
+:root {
+  --bg: #0a0a0a;
+  --panel: #141414;
+  --gold: #ffd700;
+  --text: #e0e0e0;
+}
+
+body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; overflow-x: hidden; }
+.header { display: flex; justify-content: space-between; padding: 15px 30px; border-bottom: 1px solid #222; background: #000; }
+.container { display: flex; min-height: calc(100vh - 60px); transition: all 0.8s ease; }
+.sidebar { width: 220px; background: #0f0f0f; border-right: 1px solid #222; padding: 20px; transition: 0.5s; }
+.content { flex: 1; padding: 40px; }
+
+.view { display: none; }
+.view.active { display: block; }
+
+/* Botón Modo Enfoque */
+.btn-focus-mode {
+  background: transparent; border: 1px solid var(--gold); color: var(--gold);
+  padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 25px;
+}
+
+/* Modo Enfoque Activo */
+.focus-on .header, .focus-on .sidebar { display: none !important; }
+.focus-on .container {
+  background: radial-gradient(circle, #1a1a1a 0%, #000000 100%) !important;
+  justify-content: center; align-items: center; min-height: 100vh;
+}
+.focus-on #quote-text {
+  color: #fff; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+  animation: breathe 8s ease-in-out infinite;
+}
+
+/* Botón SOS ÉPICO */
+.panic-button {
+  width: 100%; margin-top: 20px; padding: 15px;
+  background: linear-gradient(45deg, #600, #900); color: #fff;
+  border: 2px solid var(--gold); border-radius: 10px; font-weight: bold;
+  text-transform: uppercase; cursor: pointer;
+  animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.8; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+/* Botonera */
+.primary-btn { background: var(--gold); color: #000; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; }
+.secondary-btn { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 12px 24px; border-radius: 8px; cursor: pointer; }
+.nav-btn { background: #222; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-left: 5px; }
+.reflection-card { background: var(--panel); padding: 30px; border-radius: 15px; border: 1px solid #333; max-width: 600px; margin: auto; }
+textarea { width: 100%; height: 120px; background: #000; color: white; border: 1px solid #333; padding: 10px; margin: 20px 0; border-radius: 8px; }
+
+.history-item {
+    background: #1a1a1a;
+    border-left: 3px solid var(--gold);
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.history-item small { color: #888; }
+
+.danger-btn {
+    background: #721c24;
+    color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.danger-btn:hover { background: #a71d2a; }
+
+.history-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
