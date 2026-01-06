@@ -203,3 +203,61 @@ textarea { width: 100%; height: 120px; background: #000; color: white; border: 1
     box-shadow: 0 0 15px #ffd700;
     transform: scale(1.02);
 }
+
+
+/* --- FONDO DIVIDIDO 50/50 (IMÁGENES ORIGINALES) --- */
+
+/* 1. Contenedor principal */
+#view-landing {
+    position: relative;
+    overflow: hidden;
+    background-color: #000; /* Color de respaldo */
+}
+
+/* 2. IMAGEN IZQUIERDA (Tal cual es) */
+#view-landing::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;       /* Mitad izquierda */
+    height: 100%;
+    
+    /* CAMBIA ESTO POR TU IMAGEN DE LA IZQUIERDA */
+    background-image: url('1.jpeg'); 
+    
+    background-size: cover;      /* Rellena el espacio */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat;
+    
+    z-index: 0; /* Se queda al fondo */
+}
+
+/* 3. IMAGEN DERECHA (Tal cual es) */
+#view-landing::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;         /* Mitad derecha */
+    width: 50%;       
+    height: 100%;
+    
+    /* CAMBIA ESTO POR TU IMAGEN DE LA DERECHA */
+    background-image: url('2.jpg'); 
+    
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    z-index: 0; /* Se queda al fondo */
+}
+
+/* 4. CONTENIDO AL FRENTE */
+/* Esto asegura que tus botones y textos floten sobre las imágenes */
+.landing-content {
+    position: relative;
+    z-index: 10; 
+    width: 100%;
+    /* Opcional: Si el texto se pierde, puedes descomentar la siguiente línea para darle una sombra suave al texto */
+    /* text-shadow: 0 2px 5px rgba(0,0,0,0.8); */
+}
