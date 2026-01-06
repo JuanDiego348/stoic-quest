@@ -37,7 +37,7 @@
 
       <section id="view-reflection" class="view">
         <div class="reflection-card">
-          <button onclick="toggleFocusMode()" id="focus-btn" class="btn-focus-mode">🧘 Entrar en Modo Enfoque</button>
+          <button onclick="toggleFocusMode()" id="focus-btn" class="btn-focus-mode">🧘 Modo Enfoque</button>
           <blockquote id="quote-text">Cargando frase...</blockquote>
           <cite id="quote-author"></cite>
           <div class="explanation-box"><p id="quote-explanation"></p></div>
@@ -45,29 +45,27 @@
           <textarea id="reflection-input" placeholder="Escribe tu reflexión aquí..."></textarea>
           <div style="display: flex; gap: 10px;">
             <button onclick="saveReflection()" class="primary-btn">Guardar</button>
-            <button onclick="nextReflection()" class="secondary-btn">Siguiente Frase</button>
+            <button onclick="nextReflection()" class="secondary-btn">Siguiente</button>
           </div>
           <p id="save-feedback"></p>
         </div>
       </section>
 
       <section id="view-history" class="view">
-        <h2>Tu Diario de Reflexiones</h2>
-        <div id="history-list" class="history-container"></div>
+        <h2>Tu Diario Histórico</h2>
+        <div id="history-list"></div>
       </section>
 
       <section id="view-settings" class="view">
         <h2>Ajustes</h2>
-        <button onclick="exportDiary()" class="secondary-btn">Exportar Diario (.txt)</button>
-        <br><br>
-        <button onclick="resetData()" class="danger-btn">⚠️ Borrar todo el progreso</button>
+        <button onclick="resetData()" class="danger-btn">Borrar todo el progreso</button>
       </section>
     </main>
   </div>
 
-  <audio id="focus-audio" loop preload="auto"><source src="https://www.soundjay.com/nature/rain-07.mp3" type="audio/mpeg"></audio>
-  <audio id="sos-audio" preload="auto"><source src="https://codeskulptor-demos.commondatastorage.googleapis.com/pang/arrow.mp3" type="audio/mpeg"></audio>
-  <audio id="paper-audio" preload="auto"><source src="https://www.soundjay.com/misc/sounds/paper-flip-1.mp3" type="audio/mpeg"></audio>
+  <audio id="focus-audio" loop><source src="https://www.soundjay.com/nature/rain-07.mp3" type="audio/mpeg"></audio>
+  <audio id="sos-audio"><source src="https://codeskulptor-demos.commondatastorage.googleapis.com/pang/arrow.mp3" type="audio/mpeg"></audio>
+  <audio id="paper-audio"><source src="https://www.soundjay.com/misc/sounds/paper-flip-1.mp3" type="audio/mpeg"></audio>
 
   <script src="reflections.js"></script>
   <script src="app.js"></script>
