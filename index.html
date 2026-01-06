@@ -13,8 +13,8 @@
       <button onclick="showView('landing')" class="nav-btn">Inicio</button>
       <button onclick="showView('reflection')" class="nav-btn">Hoy</button>
       <button onclick="showView('history')" class="nav-btn">Diario</button>
-      <button onclick="showView('settings')" class="nav-btn">⚙</button>
       <button onclick="showView('missions')" class="nav-btn">Misiones</button>
+      <button onclick="showView('settings')" class="nav-btn">⚙</button>
     </nav>
   </header>
 
@@ -57,10 +57,6 @@
         <div id="history-list"></div>
       </section>
 
-      <section id="view-settings" class="view">
-        <h2>Ajustes</h2>
-        <button onclick="resetData()" class="danger-btn">Borrar todo el progreso</button>
-      </section>
       <section id="view-missions" class="view">
         <div class="rank-container">
             <div class="rank-icon" id="rank-visual">🛡️</div>
@@ -73,22 +69,13 @@
                 <small id="next-rank-msg">El camino a la virtud comienza ahora.</small>
             </div>
         </div>
-        <div id="missions-grid" class="missions-grid">
-            </div>
+        <div id="missions-grid" class="missions-grid"></div>
       </section>
-      </main> ```
 
-#### 3. Conecta el Cerebro (Script)
-Ve al **final absoluto** de tu archivo HTML, justo antes de la etiqueta `</body>`. Verás tus otros scripts. Agrega el nuevo ahí.
-
-```html
-  <script src="reflections.js"></script>
-  <script src="app.js"></script>
-  
-  <script src="missions.js"></script>
-  
-</body>
-</html>
+      <section id="view-settings" class="view">
+        <h2>Ajustes</h2>
+        <button onclick="resetData()" class="danger-btn">Borrar todo el progreso</button>
+      </section>
     </main>
   </div>
 
@@ -98,5 +85,6 @@ Ve al **final absoluto** de tu archivo HTML, justo antes de la etiqueta `</body>
 
   <script src="reflections.js"></script>
   <script src="app.js"></script>
+  <script src="missions.js"></script>
 </body>
 </html>
