@@ -5,259 +5,89 @@
   --text: #e0e0e0;
 }
 
-body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; overflow-x: hidden; }
+body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); margin: 0; }
 .header { display: flex; justify-content: space-between; padding: 15px 30px; border-bottom: 1px solid #222; background: #000; }
-.container { display: flex; min-height: calc(100vh - 60px); transition: all 0.8s ease; }
-.sidebar { width: 220px; background: #0f0f0f; border-right: 1px solid #222; padding: 20px; transition: 0.5s; }
-.content { flex: 1; padding: 40px; }
+.nav-btn { background: none; border: none; color: white; cursor: pointer; margin-left: 15px; }
 
-.view { display: none; }
+.container { display: flex; min-height: calc(100vh - 60px); }
+.sidebar { width: 220px; background: #0f0f0f; border-right: 1px solid #222; padding: 20px; text-align: center; }
+.content { flex: 1; padding: 40px; position: relative; }
+
+.view { display: none; animation: fadeIn 0.5s; }
 .view.active { display: block; }
 
-/* Botón Modo Enfoque */
-.btn-focus-mode {
-  background: transparent; border: 1px solid var(--gold); color: var(--gold);
-  padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 25px;
-}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* Modo Enfoque Activo */
-.focus-on .header, .focus-on .sidebar { display: none !important; }
-.focus-on .container {
-  background: radial-gradient(circle, #1a1a1a 0%, #000000 100%) !important;
-  justify-content: center; align-items: center; min-height: 100vh;
-}
-.focus-on #quote-text {
-  color: #fff; text-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-  animation: breathe 8s ease-in-out infinite;
-}
+.reflection-card { background: var(--panel); padding: 30px; border-radius: 12px; border: 1px solid #222; max-width: 600px; margin: 0 auto; }
+textarea { width: 100%; height: 100px; background: #000; color: white; border: 1px solid #333; padding: 10px; margin-top: 10px; border-radius: 5px; }
 
-/* Botón SOS ÉPICO */
-.panic-button {
-  width: 100%; margin-top: 20px; padding: 15px;
-  background: linear-gradient(45deg, #600, #900); color: #fff;
-  border: 2px solid var(--gold); border-radius: 10px; font-weight: bold;
-  text-transform: uppercase; cursor: pointer;
-  animation: pulse-red 2s infinite;
+/* Misiones */
+.missions-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+.mission-card { background: #1a1a1a; padding: 15px; border-radius: 8px; border-left: 4px solid #444; }
+.mission-card.done { border-left-color: var(--gold); opacity: 0.8; }
+.m-btn { background: var(--gold); color: black; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; margin-top: 10px; width: 100%; }
+
+/* Modo Enfoque */
+.focus-on .sidebar, .focus-on .header { display: none; }
+.focus-on { background: #000 !important; }
+
+/* Historial */
+.history-item { background: #1a1a1a; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--gold); }
+
+/* Landing */
+#view-landing { text-align: center; padding-top: 100px; }
+.cta-btn { background: var(--gold); padding: 15px 30px; border: none; font-size: 1.2rem; cursor: pointer; border-radius: 50px; }
+
+/* ... (mismo código anterior + estas adiciones) ... */
+
+.author-tag { font-size: 0.8rem; color: var(--gold); margin-left: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+.personal-badge { margin-top: 50px; padding: 15px; border: 1px dashed #333; border-radius: 8px; font-size: 0.9rem; }
+
+.ebook-offer { background: #1a1a1a; padding: 30px; border-radius: 15px; margin-top: 50px; border: 1px solid var(--gold); }
+.ebook-grid { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
+.ebook-item { background: #000; padding: 20px; border-radius: 10px; width: 180px; text-align: center; }
+.buy-btn { display: block; background: var(--gold); color: #000; text-decoration: none; padding: 10px; border-radius: 5px; font-weight: bold; margin-top: 10px; font-size: 0.8rem; }
+
+.fase-title { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 30px; }
+
+.footer-brand { text-align: center; padding: 20px; font-size: 0.8rem; border-top: 1px solid #222; background: #000; color: #555; }
+
+.mission-card { background: #141414; border: 1px solid #222; transition: 0.3s; padding: 15px; }
+.mission-card:hover { border-color: var(--gold); }
+.mission-card.done { background: #0a2410; border-color: #2ecc71; }
+
+
+.author-tag { font-size: 0.8rem; color: var(--gold); margin-left: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+.personal-badge { margin-top: 50px; padding: 15px; border: 1px dashed #333; border-radius: 8px; font-size: 0.9rem; }
+
+.ebook-offer { background: #1a1a1a; padding: 30px; border-radius: 15px; margin-top: 50px; border: 1px solid var(--gold); }
+.ebook-grid { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
+.ebook-item { background: #000; padding: 20px; border-radius: 10px; width: 180px; text-align: center; }
+.buy-btn { display: block; background: var(--gold); color: #000; text-decoration: none; padding: 10px; border-radius: 5px; font-weight: bold; margin-top: 10px; font-size: 0.8rem; }
+
+.fase-title { color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 30px; }
+
+.footer-brand { text-align: center; padding: 20px; font-size: 0.8rem; border-top: 1px solid #222; background: #000; color: #555; }
+
+.mission-card { background: #141414; border: 1px solid #222; transition: 0.3s; padding: 15px; }
+.mission-card:hover { border-color: var(--gold); }
+.mission-card.done { background: #0a2410; border-color: #2ecc71; }
+
+#save-feedback {
+    color: #ffd700;
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    min-height: 20px;
 }
-
-@keyframes pulse-red {
-  0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
-  70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
-}
-
-@keyframes breathe {
-  0%, 100% { opacity: 0.8; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.02); }
-}
-
-/* Botonera */
-.primary-btn { background: var(--gold); color: #000; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; }
-.secondary-btn { background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 12px 24px; border-radius: 8px; cursor: pointer; }
-.nav-btn { background: #222; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-left: 5px; }
-.reflection-card { background: var(--panel); padding: 30px; border-radius: 15px; border: 1px solid #333; max-width: 600px; margin: auto; }
-textarea { width: 100%; height: 120px; background: #000; color: white; border: 1px solid #333; padding: 10px; margin: 20px 0; border-radius: 8px; }
-
-.history-item {
-    background: #1a1a1a;
-    border-left: 3px solid var(--gold);
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-}
-
-.history-item small { color: #888; }
 
 .danger-btn {
-    background: #721c24;
-    color: #f8d7da;
-    border: 1px solid #f5c6cb;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.danger-btn:hover { background: #a71d2a; }
-
-.history-container {
-    max-height: 500px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
-
-
-/* --- 🛡️ ESTILOS NUEVOS PARA MISIONES (PEGAR AL FINAL) 🛡️ --- */
-
-.rank-container {
-    background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
-    border: 1px solid #ffd700; /* Borde dorado */
-    border-radius: 12px;
-    padding: 25px;
-    display: flex;
-    align-items: center;
-    gap: 25px;
-    margin-bottom: 30px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.7);
-}
-
-.rank-icon {
-    font-size: 3.5rem;
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4));
-    animation: float 3s ease-in-out infinite;
-}
-
-.rank-info { flex: 1; }
-.rank-info h2 { margin: 0 0 5px 0; color: #ffd700; text-transform: uppercase; letter-spacing: 1px; }
-.rank-info p { margin: 0; color: #bbb; font-size: 0.9rem; }
-
-.progress-bar {
-    width: 100%; height: 8px; background: #333;
-    border-radius: 10px; margin: 12px 0; overflow: hidden; border: 1px solid #444;
-}
-
-.progress-fill {
-    height: 100%; background: linear-gradient(90deg, #ffd700, #ffae00);
-    box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.missions-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 20px;
-}
-
-.mission-card {
-    background: #151515; border: 1px solid #333;
-    padding: 20px; border-radius: 10px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    transition: transform 0.2s, border-color 0.2s;
-}
-
-.mission-card:hover { transform: translateY(-5px); border-color: #666; }
-.mission-card h3 { color: #e0e0e0; margin-top: 5px; margin-bottom: 10px; }
-.mission-card p { font-size: 0.9rem; color: #aaa; line-height: 1.4; margin-bottom: 15px; }
-
-.mission-card.completed {
-    border-color: #ffd700; background: rgba(255, 215, 0, 0.05);
-}
-
-.btn-complete {
-    width: 100%; padding: 12px;
-    background: transparent; color: #ffd700;
-    border: 1px solid #ffd700; font-weight: bold;
-    cursor: pointer; border-radius: 6px; text-transform: uppercase;
     transition: 0.3s;
 }
 
-.btn-complete:hover { background: #ffd700; color: #000; }
-.btn-complete:disabled {
-    background: #000; color: #666; border-color: #333; cursor: default;
-}
-
-@keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-
-/* --- BRANDING @777THEMENTOR --- */
-.personal-brand-tag {
-    position: fixed;
-    bottom: 10px;
-    right: 20px;
-    text-align: right;
-    font-size: 0.7rem;
-    color: #555;
-    z-index: 100;
-}
-
-.author-name {
-    color: #ffd700;
-    font-weight: bold;
-}
-
-.promo-box {
-    background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
-    border: 1px solid #ffd700;
-    padding: 25px;
-    border-radius: 15px;
-    margin: 30px auto;
-    max-width: 450px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    text-align: center;
-}
-
-.beacons-btn {
-    display: block;
-    margin-top: 15px;
-    padding: 12px;
-    background: #ffd700;
-    color: #000;
-    text-decoration: none;
-    font-weight: 800;
-    border-radius: 8px;
-    text-transform: uppercase;
-    transition: 0.4s;
-}
-
-.beacons-btn:hover {
-    background: #fff;
-    box-shadow: 0 0 15px #ffd700;
+.danger-btn:hover {
+    background: #cc0000 !important;
     transform: scale(1.02);
-}
-
-
-/* --- FONDO DIVIDIDO 50/50 (IMÁGENES ORIGINALES) --- */
-
-/* 1. Contenedor principal */
-#view-landing {
-    position: relative;
-    overflow: hidden;
-    background-color: #000; /* Color de respaldo */
-}
-
-/* 2. IMAGEN IZQUIERDA (Tal cual es) */
-#view-landing::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;       /* Mitad izquierda */
-    height: 100%;
-    
-    /* CAMBIA ESTO POR TU IMAGEN DE LA IZQUIERDA */
-    background-image: url('1.jpeg'); 
-    
-    background-size: cover;      /* Rellena el espacio */
-    background-position: center; /* Centra la imagen */
-    background-repeat: no-repeat;
-    
-    z-index: 0; /* Se queda al fondo */
-}
-
-/* 3. IMAGEN DERECHA (Tal cual es) */
-#view-landing::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;         /* Mitad derecha */
-    width: 50%;       
-    height: 100%;
-    
-    /* CAMBIA ESTO POR TU IMAGEN DE LA DERECHA */
-    background-image: url('2.jpg'); 
-    
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    z-index: 0; /* Se queda al fondo */
-}
-
-/* 4. CONTENIDO AL FRENTE */
-/* Esto asegura que tus botones y textos floten sobre las imágenes */
-.landing-content {
-    position: relative;
-    z-index: 10; 
-    width: 100%;
-    /* Opcional: Si el texto se pierde, puedes descomentar la siguiente línea para darle una sombra suave al texto */
-    /* text-shadow: 0 2px 5px rgba(0,0,0,0.8); */
 }

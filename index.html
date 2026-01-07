@@ -1,106 +1,149 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StoicQuest - Oficial</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StoicQuest - @777thementor</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="header">
-    <div class="brand">❧ StoicQuest ❧</div>
-    <nav class="nav">
-      <button onclick="showView('landing')" class="nav-btn">Inicio</button>
-      <button onclick="showView('reflection')" class="nav-btn">Hoy</button>
-      <button onclick="showView('history')" class="nav-btn">Diario</button>
-      <button onclick="showView('missions')" class="nav-btn">Misiones</button>
-      <button onclick="showView('settings')" class="nav-btn">⚙</button>
-    </nav>
-  </header>
+    <header class="header">
+        <div class="brand">❧ StoicQuest ❧ <span class="author-tag">by @777thementor</span></div>
+        <nav class="nav">
+            <button onclick="showView('landing')" class="nav-btn">Inicio</button>
+            <button onclick="showView('reflection')" class="nav-btn">Entrenamiento</button>
+            <button onclick="showView('missions')" class="nav-btn">Misiones</button>
+            <button onclick="showView('history')" class="nav-btn">Diario</button>
+            <button onclick="showView('settings')" class="nav-btn">⚙️ Ajustes</button>
+        </nav>
+    </header>
 
-  <div class="container">
-    <aside class="sidebar">
-      <div class="streak-card">
-        <span style="font-size: 2rem;">🔥</span>
-        <h2 id="streak-count">0</h2>
-        <p>Días de racha</p>
-        <div id="rank-label" style="font-weight: bold; color: #ffd700;">Novato</div>
-      </div>
-      <button onclick="handlePanic()" class="panic-button">🆘 SOS ESTOICO</button>
-    </aside>
+    <div class="container" id="main-container">
+        <aside class="sidebar">
+            <div class="streak-card">
+                <span style="font-size: 2rem;">🔥</span>
+                <h2 id="streak-count">0</h2>
+                <p>Días de racha</p>
+                <div id="rank-label" style="font-weight: bold; color: #ffd700;">Novato</div>
+            </div>
+            <button onclick="handlePanic()" class="panic-button">🆘 SOS ESTOICO</button>
+            
+            <div class="personal-badge">
+                <p>Sigue el camino:</p>
+                <a href="https://beacons.ai/777thementor" target="_blank" style="color:var(--gold); text-decoration:none;"><strong>@777thementor</strong></a>
+            </div>
+        </aside>
 
-    <main class="content">
-      <section id="view-landing" class="view active">
-        <h1>Bienvenido, buscador de virtud.</h1>
-        <p>La disciplina es la clave de la libertad.</p>
-        <div class="promo-box">
-            <small style="color: #ffd700; letter-spacing: 2px;">BY @777THEMENTOR</small>
-            <h3>Domina tu Mente y tu Dinero</h3>
-            <p>Aprende las estrategias de estoicismo y finanzas que enseño en mis libros.</p>
-            <a href="https://beacons.ai/777thementor" target="_blank" class="beacons-btn">
-                📖 Ver mis Libros y Recursos
-            </a>
+        <main class="content">
+            <section id="view-landing" class="view active">
+                <div class="landing-content">
+                    <h1>DOMINA TU MENTE</h1>
+                    <p>Entrenamiento diario de disciplina y filosofía con @777thementor.</p>
+                    <button onclick="showView('reflection')" class="cta-btn">Comenzar Ahora</button>
+
+                    <div class="ebook-offer">
+                        <h3>📚 RECURSOS DE PODER</h3>
+                        <p>Lleva tu mentalidad al nivel del 1% con mis Ebooks y mentorías.</p>
+                        <div class="ebook-grid">
+                            <div class="ebook-item">
+                                <span>📙</span>
+                                <h4>Ebooks de Mentalidad</h4>
+                                <a href="https://beacons.ai/777thementor" target="_blank" class="buy-btn">Ver Catálogo</a>
+                            </div>
+                            <div class="ebook-item">
+                                <span>📱</span>
+                                <h4>Comunidad VIP</h4>
+                                <a href="https://beacons.ai/777thementor" target="_blank" class="buy-btn">Unirme</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="view-reflection" class="view">
+                <button onclick="toggleFocusMode()" class="btn-focus-mode">✨ Modo Enfoque</button>
+                <div class="reflection-card">
+                    <h2 id="quote-text">Cargando...</h2>
+                    <p id="quote-author" style="color: #ffd700;"></p>
+                    <hr>
+                    <p id="quote-explanation"></p>
+                    <div class="meditation-box">
+                        <p id="quote-question"></p>
+                        <textarea id="reflection-input" placeholder="Escribe tu reflexión..."></textarea>
+                    </div>
+                    <button onclick="saveReflection()" class="save-btn">Guardar Progreso</button>
+                    <button onclick="nextReflection()" class="next-btn">Siguiente</button>
+                </div>
+            </section>
+
+            <section id="view-missions" class="view">
+    <div class="rank-card">
+        <div class="rank-visual" id="rank-icon-big">🛡️</div>
+        <div class="rank-info">
+            <h2 id="rank-title">Cargando...</h2>
+            <div class="progress-bar" style="background: #222; width: 100%; height: 12px; border-radius: 10px; margin: 10px 0;">
+                <div id="rank-progress" style="background: var(--gold); width: 0%; height: 100%; border-radius: 10px; transition: width 0.5s;"></div>
+            </div>
+            <p>Total completado: <span id="mission-count">0</span> / 33</p>
+            <small style="color: #888;">Progreso de la fase actual</small>
         </div>
+    </div>
+    
+    <h2 style="color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px;">Fase I: El Despertar</h2>
+    <div id="grid-fase-1" class="missions-grid"></div>
+    
+    <h2 style="color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 30px;">Fase II: La Forja</h2>
+    <div id="grid-fase-2" class="missions-grid"></div>
+    
+    <h2 style="color: var(--gold); border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 30px;">Fase III: Maestría</h2>
+    <div id="grid-fase-3" class="missions-grid"></div>
+</section>
 
-        <button onclick="showView('reflection')" class="cta-btn">Comenzar hoy</button>
+            <section id="view-history" class="view">
+                <h2>Tu Historial de Guerra</h2>
+                <div id="history-list"></div>
+            </section>
+
+            <section id="view-settings" class="view">
+    <div style="max-width: 500px; margin: 40px auto; padding: 30px; background: #222; border: 2px solid #ff4444; border-radius: 15px; text-align: center; color: white;">
+        <h2 style="color: #ff4444;">Zona de Control</h2>
+        <p>@777thementor, aquí puedes reiniciar tu progreso.</p>
+        
+        <div style="margin-top: 30px; padding: 20px; border: 1px solid #441111; background: #331111; border-radius: 10px;">
+            <p style="color: #ff8888; font-size: 0.9rem;">⚠️ Esta acción borrará:<br>Racha, misiones y diario permanentemente.</p>
+            <button onclick="resetData()" style="background: #ff4444; color: white; border: none; padding: 15px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 15px; width: 100%;">
+                BORRAR TODO EL PROGRESO
+            </button>
+        </div>
     </div>
 </section>
 
-      <section id="view-reflection" class="view">
-        <div class="reflection-card">
-          <button onclick="toggleFocusMode()" id="focus-btn" class="btn-focus-mode">🧘 Modo Enfoque</button>
-          <blockquote id="quote-text">Cargando frase...</blockquote>
-          <cite id="quote-author"></cite>
-          <div class="explanation-box"><p id="quote-explanation"></p></div>
-          <h4 id="quote-question"></h4>
-          <textarea id="reflection-input" placeholder="Escribe tu reflexión aquí..."></textarea>
-          <div style="display: flex; gap: 10px;">
-            <button onclick="saveReflection()" class="primary-btn">Guardar</button>
-            <button onclick="nextReflection()" class="secondary-btn">Siguiente</button>
-          </div>
-          <p id="save-feedback"></p>
+            <section id="view-settings" class="view">
+    <div style="max-width: 500px; margin: 40px auto; padding: 30px; background: #1a1a1a; border: 2px solid #333; border-radius: 15px; text-align: center;">
+        <h2 style="color: #ff4444;">Zona de Control</h2>
+        <p>@777thementor, desde aquí puedes reiniciar tu entrenamiento.</p>
+        
+        <div style="margin-top: 30px; padding: 20px; border: 1px solid #441111; background: #220a0a; border-radius: 10px;">
+            <p style="color: #ff8888; font-size: 0.9rem;">⚠️ Esta acción borrará:<br>Toda tu racha, todas las misiones y todo tu diario.</p>
+            <button onclick="resetData()" style="background: #ff4444; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px;">
+                BORRAR TODO EL PROGRESO
+            </button>
         </div>
-      </section>
+    </div>
+</section>
+        </main>
+    </div>
 
-      <section id="view-history" class="view">
-        <h2>Tu Diario Histórico</h2>
-        <div id="history-list"></div>
-      </section>
+    <footer class="footer-brand">
+        StoicQuest © 2026 | Creado por <strong>@777thementor</strong>
+    </footer>
 
-      <section id="view-missions" class="view">
-        <div class="rank-container">
-            <div class="rank-icon" id="rank-visual">🛡️</div>
-            <div class="rank-info">
-                <h2 id="rank-title">Cargando Rango...</h2>
-                <p>Misiones completadas: <span id="mission-count">0</span></p>
-                <div class="progress-bar">
-                    <div id="rank-progress" class="progress-fill" style="width: 0%"></div>
-                </div>
-                <small id="next-rank-msg">El camino a la virtud comienza ahora.</small>
-            </div>
-        </div>
-        <div id="missions-grid" class="missions-grid"></div>
-      </section>
+    <script src="reflections.js"></script>
+    <script src="missions.js"></script>
+    <script src="app.js"></script>
 
-      <section id="view-settings" class="view">
-        <h2>Ajustes</h2>
-        <button onclick="resetData()" class="danger-btn">Borrar todo el progreso</button>
-      </section>
-    </main>
-  </div>
-
-  <audio id="focus-audio" loop><source src="https://www.soundjay.com/nature/rain-07.mp3" type="audio/mpeg"></audio>
-  <audio id="sos-audio"><source src="https://codeskulptor-demos.commondatastorage.googleapis.com/pang/arrow.mp3" type="audio/mpeg"></audio>
-  <audio id="paper-audio"><source src="https://www.soundjay.com/misc/sounds/paper-flip-1.mp3" type="audio/mpeg"></audio>
-
-<div class="personal-brand-tag">
-    © 2026 | <span class="author-name">Juan Diego Nossa Zarate</span> 
-    <br>
-    <span style="font-size: 0.65rem; color: #888;">Powered by @777thementor</span>
-  </div>
-  
-  <script src="reflections.js"></script>
-  <script src="app.js"></script>
-  <script src="missions.js"></script>
+    <audio id="focus-audio" loop><source src="https://www.soundjay.com/nature/rain-07.mp3"></audio>
+    <audio id="sos-audio"><source src="https://codeskulptor-demos.commondatastorage.googleapis.com/pang/arrow.mp3"></audio>
+    <audio id="paper-audio"><source src="https://www.soundjay.com/misc/sounds/paper-flip-1.mp3"></audio>
 </body>
 </html>

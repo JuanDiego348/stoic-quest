@@ -3,109 +3,102 @@ let streakDays = parseInt(localStorage.getItem('streakDays')) || 0;
 let completedReflections = JSON.parse(localStorage.getItem('completedReflections')) || [];
 let focusActive = false; 
 
-// Selección de frase del día
 const msPerDay = 24 * 60 * 60 * 1000;
 const startDate = new Date('2024-01-01').getTime();
 const daysPassed = Math.floor((Date.now() - startDate) / msPerDay);
 let currentIndex = daysPassed % (typeof reflections !== 'undefined' ? reflections.length : 1);
 
+// --- INICIALIZACIÓN ---
+window.onload = () => {
+    updateStreakUI();
+    renderReflection();
+    if (typeof renderMissions === "function") renderMissions(); // ESTO CARGA LAS MISIONES
+};
+
 // --- NAVEGACIÓN ---
 function showView(viewId) {
-    if (focusActive) toggleFocusMode(); // Apagar lluvia si cambias de pestaña
-    document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
+    if (focusActive) toggleFocusMode(); 
+
+    document.querySelectorAll('.view').forEach(v => {
+        v.style.display = 'none';
+        v.classList.remove('active');
+    });
+
     const target = document.getElementById('view-' + viewId);
-    if (target) target.style.display = 'block';
+    if (target) {
+        target.style.display = 'block';
+        target.classList.add('active');
+    }
+
+    if (viewId === 'missions') renderMissions();
     if (viewId === 'history') renderHistory();
 }
 
-// --- BOTÓN SIGUIENTE (CON SONIDO DE PAPEL) ---
-function nextReflection() {
-    const paperSfx = document.getElementById('paper-audio');
-    if (paperSfx) {
-        paperSfx.currentTime = 0;
-        paperSfx.play();
-    }
-    currentIndex = (currentIndex + 1) % reflections.length;
-    document.getElementById('reflection-input').value = "";
-    document.getElementById('save-feedback').innerText = "";
-    renderReflection();
+// --- CONTADOR DE RACHA ---
+function updateStreakUI() {
+    const streakCountEl = document.getElementById('streak-count');
+    if (streakCountEl) streakCountEl.innerText = streakDays;
 }
 
-// --- MODO ENFOQUE (LLUVIA PROGRESIVA) ---
-function toggleFocusMode() {
-    const body = document.body;
-    const audio = document.getElementById('focus-audio');
-    const btn = document.getElementById('focus-btn');
-    focusActive = !focusActive; 
-
-    if (focusActive) {
-        body.classList.add('focus-on'); 
-        btn.innerText = "✖ Salir del Enfoque";
-        if (audio) {
-            audio.volume = 0;
-            audio.play();
-            let vol = 0;
-            let fadeIn = setInterval(() => {
-                if (vol < 0.4) { vol += 0.05; audio.volume = vol; }
-                else { clearInterval(fadeIn); }
-            }, 200);
-        }
-    } else {
-        body.classList.remove('focus-on');
-        btn.innerText = "🧘 Entrar en Modo Enfoque";
-        if (audio) { audio.pause(); audio.currentTime = 0; }
-    }
-}
-
-// --- BOTÓN SOS (TROMPETAS) ---
-function handlePanic() {
-    const sosAudio = document.getElementById('sos-audio');
-    if (sosAudio) { sosAudio.currentTime = 0; sosAudio.play(); }
-
-    const arsenal = [
-        "¿Esto que te preocupa depende de ti? Si no, déjalo ir.",
-        "El dolor es inevitable, el sufrimiento es opcional.",
-        "No es lo que te sucede, sino cómo reaccionas lo que importa.",
-        "La mejor venganza es no ser como quien te causó el daño."
-    ];
-    alert("🛡️ CONSEJO DE EMERGENCIA: \n\n" + arsenal[Math.floor(Math.random() * arsenal.length)]);
-}
-
-// --- DIARIO Y DATOS ---
+// --- GUARDAR REFLEXIÓN Y SUMAR RACHA ---
 function saveReflection() {
-    const text = document.getElementById('reflection-input').value.trim();
-    if (!text) return alert("Escribe tu reflexión.");
+    const input = document.getElementById('reflection-input');
+    const feedback = document.getElementById('save-feedback');
     
-    localStorage.setItem(`ref_${currentIndex}`, text);
+    if (!input.value.trim()) {
+        alert("Primero escribe tu reflexión, mentor.");
+        return;
+    }
+
+    // 1. Guardar el texto en el diario
+    localStorage.setItem(`ref_${currentIndex}`, input.value);
     localStorage.setItem(`date_${currentIndex}`, new Date().toLocaleDateString());
-    
+
+    // 2. Si no se había completado hoy, sumar racha
     if (!completedReflections.includes(currentIndex)) {
         completedReflections.push(currentIndex);
         localStorage.setItem('completedReflections', JSON.stringify(completedReflections));
+        
+        // Sumar racha numéricamente
+        streakDays++;
+        localStorage.setItem('streakDays', streakDays);
     }
-    document.getElementById('save-feedback').innerText = "✅ Guardado en el Diario.";
+
+    // 3. ACTUALIZAR INTERFAZ (Vital para que veas el cambio)
+    updateStreakUI(); 
+    if(feedback) feedback.innerText = "✅ ¡Progreso guardado, Guerrero!";
+    
+    // Limpiar input opcionalmente después de unos segundos
+    setTimeout(() => { if(feedback) feedback.innerText = ""; }, 3000);
 }
 
-function renderHistory() {
-    const container = document.getElementById('history-list');
-    if (completedReflections.length === 0) {
-        container.innerHTML = "<p>Aún no hay historias en tu diario.</p>";
-        return;
-    }
-    container.innerHTML = completedReflections.map(idx => `
-        <div style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:10px; border-left: 4px solid #ffd700;">
-            <small style="color:#888">${localStorage.getItem(`date_${idx}`)}</small><br>
-            <p><i>"${reflections[idx].quote}"</i></p>
-            <p><strong>Tu reflexión:</strong> ${localStorage.getItem(`ref_${idx}`)}</p>
-        </div>
-    `).join('');
-}
-
+// Asegúrate de que resetData limpie TODO
 function resetData() {
-    if(confirm("¿Estás seguro? Perderás todo tu progreso.")) {
+    if(confirm("@777thementor, ¿seguro que quieres eliminar todo tu esfuerzo?")) {
         localStorage.clear();
-        location.reload();
+        window.location.reload();
     }
+}
+
+// --- MODO ENFOQUE Y OTROS ---
+function toggleFocusMode() {
+    focusActive = !focusActive;
+    const container = document.getElementById('main-container');
+    const audio = document.getElementById('focus-audio');
+    
+    if (focusActive) {
+        container.classList.add('focus-on');
+        if(audio) audio.play();
+    } else {
+        container.classList.remove('focus-on');
+        if(audio) audio.pause();
+    }
+}
+
+function handlePanic() {
+    const sosSfx = document.getElementById('sos-audio');
+    if (sosSfx) sosSfx.play();
+    alert("¡Respira! 'No es lo que te sucede, sino cómo reaccionas lo que importa.' - Epicteto");
 }
 
 function renderReflection() {
@@ -117,4 +110,24 @@ function renderReflection() {
     document.getElementById('quote-question').innerText = r.question;
 }
 
-window.onload = () => { renderReflection(); showView('landing'); };
+function nextReflection() {
+    currentIndex = (currentIndex + 1) % reflections.length;
+    renderReflection();
+    document.getElementById('reflection-input').value = "";
+    document.getElementById('save-feedback').innerText = "";
+}
+
+function renderHistory() {
+    const container = document.getElementById('history-list');
+    if (completedReflections.length === 0) {
+        container.innerHTML = "<p>Aún no hay historias en tu diario.</p>";
+        return;
+    }
+    container.innerHTML = completedReflections.map(idx => `
+        <div class="history-item" style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:10px; border-left: 4px solid #ffd700;">
+            <small>${localStorage.getItem(`date_${idx}`)}</small>
+            <p><i>"${reflections[idx].quote}"</i></p>
+            <p><strong>Tu reflexión:</strong> ${localStorage.getItem(`ref_${idx}`)}</p>
+        </div>
+    `).join('');
+}
