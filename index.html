@@ -19,7 +19,7 @@
         </nav>
     </header>
 
-    <div class="container" id="main-container">
+    <div class="container">
         <aside class="sidebar">
             <div class="streak-card">
                 <span style="font-size: 2rem;">🔥</span>
@@ -42,16 +42,21 @@
         <button onclick="showView('reflection')" class="cta-btn">Comenzar Ahora</button>
 
         <div class="ebook-offer">
-            <h3>📚 RECURSOS DE PODER</h3>
+            <h3>🎙️ ECOSISTEMA DE PODER</h3>
             <div class="ebook-grid">
                 <div class="ebook-item">
                     <span>📙</span>
-                    <h4>Ebooks de Mentalidad</h4>
+                    <h4>Ebooks</h4>
                     <a href="https://beacons.ai/777thementor" target="_blank" class="buy-btn">Ver Catálogo</a>
                 </div>
                 <div class="ebook-item">
+                    <span>🎧</span>
+                    <h4>Podcast</h4>
+                    <a href="https://open.spotify.com/show/13GZ4C1GpgBhWcAdq5rZzZ?si=Brhc94EjRrmzVblZy1urbA" target="_blank" class="buy-btn" style="background: #1DB954; color: white;">Escuchar</a>
+                </div>
+                <div class="ebook-item">
                     <span>📱</span>
-                    <h4>Comunidad VIP</h4>
+                    <h4>Comunidad</h4>
                     <a href="https://www.instagram.com/channel/AbYkERw-gUqg_7Pd/" target="_blank" class="buy-btn">Unirme</a>
                 </div>
             </div>
@@ -70,8 +75,8 @@
                         <textarea id="reflection-input" placeholder="Escribe tu reflexión..."></textarea>
                     </div>
                     <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button onclick="saveReflection()" class="save-btn" style="flex: 1;">Guardar Progreso</button>
-                        <button onclick="nextReflection()" class="save-btn" style="flex: 1; background: #333;">Siguiente →</button>
+                        <button onclick="saveReflection()" class="save-btn" style="flex: 1;">Guardar</button>
+                        <button onclick="nextReflection()" class="next-btn" style="flex: 1;">Siguiente →</button>
                     </div>
                     <p id="save-feedback" style="text-align: center; margin-top: 10px;"></p>
                 </div>
@@ -80,30 +85,26 @@
             <section id="view-arena" class="view">
                 <div id="arena-register" class="reflection-card">
                     <h2 style="color: var(--gold);">⚜️ Identidad Estoica ⚜️</h2>
-                    <p>Revela tu nombre para entrar a la Arena.</p>
                     <input type="text" id="reg-name" placeholder="Tu Nombre" class="st-input" style="width: 80%; margin: 20px 0; padding: 10px; background: #222; border: 1px solid #444; color: white; border-radius: 5px; text-align: center;">
                     <button onclick="mockLogin()" class="cta-btn">Firmar el Pacto</button>
                 </div>
-                <div id="arena-dashboard" style="display: none; width: 100%;">
+                <div id="arena-dashboard" style="display: none;">
                     <h3 style="color: var(--gold); text-align: center;">🏆 Tabla de Honor</h3>
                     <div class="podium-container">
                         <div class="podium-item">
                             <div class="crown">🥈</div>
                             <div class="avatar-circle" style="border-color: silver;">MA</div>
                             <div class="podium-bar" style="height: 60px; background: silver;"></div>
-                            <small>Marco</small>
                         </div>
                         <div class="podium-item">
                             <div class="crown">👑</div>
-                            <div class="avatar-circle" style="border-color: var(--gold);">JD</div>
+                            <div class="avatar-circle" style="border-color: var(--gold);">TÚ</div>
                             <div class="podium-bar" style="height: 100px; background: var(--gold);"></div>
-                            <small>Juan Diego</small>
                         </div>
                         <div class="podium-item">
                             <div class="crown">🥉</div>
                             <div class="avatar-circle" style="border-color: #cd7f32;">EP</div>
                             <div class="podium-bar" style="height: 40px; background: #cd7f32;"></div>
-                            <small>Epicteto</small>
                         </div>
                     </div>
                 </div>
@@ -116,7 +117,7 @@
                         <h2 id="rank-title">Efebo</h2>
                         <p>Total completado: <span id="mission-count">0</span> / 33</p>
                         <div class="progress-bar">
-                            <div id="rank-progress" style="width: 0%;"></div>
+                            <div id="rank-progress"></div>
                         </div>
                     </div>
                 </div>
@@ -131,10 +132,9 @@
             </section>
 
             <section id="view-settings" class="view">
-                <div style="max-width: 500px; margin: 40px auto; padding: 30px; background: #1a1a1a; border: 2px solid #333; border-radius: 15px; text-align: center;">
+                <div class="reflection-card" style="text-align: center;">
                     <h2 style="color: #ff4444;">Zona de Control</h2>
-                    <p>@777thementor, desde aquí puedes reiniciar tu entrenamiento.</p>
-                    <button onclick="resetData()" style="background: #ff4444; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px;">BORRAR TODO EL PROGRESO</button>
+                    <button onclick="resetData()" style="background: #ff4444; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer;">BORRAR PROGRESO</button>
                 </div>
             </section>
         </main>
