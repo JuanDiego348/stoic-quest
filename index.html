@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StoicQuest - @777thementor</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 </head>
 <body>
     <header class="header">
@@ -13,9 +16,9 @@
             <button onclick="showView('landing')" class="nav-item"><span>🏠</span> Inicio</button>
             <button onclick="showView('reflection')" class="nav-item"><span>📜</span> Hoy</button>
             <button onclick="showView('arena')" class="nav-item" style="color: #ffd700;"><span>🏛️</span> Arena</button>
-            <button onclick="showView('history')" class="nav-item"><span>📖</span> Diario</button>
             <button onclick="showView('missions')" class="nav-item"><span>⚔️</span> Misión</button>
-            <button onclick="showView('settings')" class="nav-item"><span>⚙️</span> Ajustes</button>
+            <button onclick="showView('history')" class="nav-item"><span>📖</span> Diario</button>
+            <button onclick="showView('settings')" class="nav-item"><span>⚙️</span></button>
         </nav>
     </header>
 
@@ -24,89 +27,119 @@
             <div class="streak-card">
                 <span style="font-size: 2rem;">🔥</span>
                 <h2 id="streak-count">0</h2>
-                <p>Días de racha</p>
-                <div id="rank-label" style="font-weight: bold; color: #ffd700;">Efebo</div>
+                <p>Días Racha</p>
+                <hr style="border-color: #333; opacity: 0.3; margin: 10px 0;">
+                <span style="font-size: 1.5rem; color: var(--gold);">⚜️</span>
+                <h3 id="honor-points">0 PH</h3>
+                <p>Puntos de Honor</p>
+                <div id="rank-label" style="font-weight: bold; color: #ffd700; margin-top:10px;">Efebo</div>
             </div>
+            
             <button onclick="handlePanic()" class="panic-button">🆘 SOS ESTOICO</button>
+            
             <div class="personal-badge">
-                <p>Sigue el camino:</p>
+                <p>Únete a la legión:</p>
                 <a href="https://beacons.ai/777thementor" target="_blank" style="color:var(--gold); text-decoration:none;"><strong>@777thementor</strong></a>
             </div>
         </aside>
 
         <main class="content">
             <section id="view-landing" class="view active">
-    <div class="landing-content">
-        <h1>DOMINA TU MENTE</h1>
-        <p>Entrenamiento diario de disciplina y filosofía con @777thementor.</p>
-        <button onclick="showView('reflection')" class="cta-btn">Comenzar Ahora</button>
+                <div class="landing-content">
+                    <h1 class="marble-title">DOMINA TU MENTE</h1>
+                    <p>Entrenamiento diario de disciplina y filosofía.</p>
+                    <button onclick="showView('reflection')" class="cta-btn">Comenzar el Día</button>
 
-        <div class="ebook-offer">
-            <h3>🎙️ ECOSISTEMA DE PODER</h3>
-            <div class="ebook-grid">
-                <div class="ebook-item">
-                    <span>📙</span>
-                    <h4>Ebooks</h4>
-                    <a href="https://beacons.ai/777thementor" target="_blank" class="buy-btn">Ver Catálogo</a>
+                    <div class="ebook-offer" style="margin-top: 50px;">
+                        <h3 class="marble-title" style="font-size: 1.2rem; border-bottom: 1px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
+                            🎙️ ECOSISTEMA DE PODER
+                        </h3>
+                        
+                        <div class="ecosystem-grid">
+                            <a href="https://beacons.ai/777thementor" target="_blank" class="eco-card ebooks">
+                                <div class="eco-icon">📚</div>
+                                <div class="eco-title">Biblioteca</div>
+                                <div class="eco-desc">Adquiere los Ebooks y guías maestras de la orden.</div>
+                            </a>
+
+                            <a href="https://open.spotify.com/show/13GZ4C1GpgBhWcAdq5rZzZ?si=Brhc94EjRrmzVblZy1urbA" target="_blank" class="eco-card spotify">
+                                <div class="eco-icon" style="color:#1DB954;">🎧</div>
+                                <div class="eco-title">Spotify</div>
+                                <div class="eco-desc">Audio-mentoría para reprogramar tu subconsciente.</div>
+                            </a>
+
+                            <a href="https://www.tiktok.com/@777thementor" target="_blank" class="eco-card tiktok">
+                                <div class="eco-icon" style="color: #FE2C55;">📱</div>
+                                <div class="eco-title">TikTok</div>
+                                <div class="eco-desc">Dosis visuales diarias de estoicismo aplicado.</div>
+                            </a>
+
+                            <a href="https://www.instagram.com/channel/AbYkERw-gUqg_7Pd/" target="_blank" class="eco-card">
+                                <div class="eco-icon">🦁</div>
+                                <div class="eco-title">Comunidad</div>
+                                <div class="eco-desc">Rodéate de otros leones. La manada te espera.</div>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div class="ebook-item">
-                    <span>🎧</span>
-                    <h4>Podcast</h4>
-                    <a href="https://open.spotify.com/show/13GZ4C1GpgBhWcAdq5rZzZ?si=Brhc94EjRrmzVblZy1urbA" target="_blank" class="buy-btn" style="background: #1DB954; color: white;">Escuchar</a>
-                </div>
-                <div class="ebook-item">
-                    <span>📱</span>
-                    <h4>Comunidad</h4>
-                    <a href="https://www.instagram.com/channel/AbYkERw-gUqg_7Pd/" target="_blank" class="buy-btn">Unirme</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+            </section>
 
             <section id="view-reflection" class="view">
-                <div class="reflection-card">
-                    <h2 id="quote-text"></h2>
-                    <p id="quote-author" style="color: var(--gold);"></p>
-                    <hr>
-                    <p id="quote-explanation"></p>
+                <div class="reflection-card parchment-bg">
+                    <div class="wax-seal"></div>
+                    <h2 id="quote-text" class="ink-text"></h2>
+                    <p id="quote-author" style="color: #8b0000; font-weight:bold;"></p>
+                    <hr class="ink-line">
+                    <p id="quote-explanation" class="ink-text-light"></p>
                     <div class="meditation-box">
-                        <p id="quote-question"></p>
-                        <textarea id="reflection-input" placeholder="Escribe tu reflexión..."></textarea>
+                        <p id="quote-question" style="font-weight: bold;"></p>
+                        <textarea id="reflection-input" placeholder="Plasma tus pensamientos aquí..."></textarea>
                     </div>
                     <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button onclick="saveReflection()" class="save-btn" style="flex: 1;">Guardar</button>
+                        <button onclick="saveReflection()" class="save-btn" style="flex: 1;">Guardar en Diario</button>
                         <button onclick="nextReflection()" class="next-btn" style="flex: 1;">Siguiente →</button>
                     </div>
-                    <p id="save-feedback" style="text-align: center; margin-top: 10px;"></p>
                 </div>
             </section>
 
             <section id="view-arena" class="view">
-                <div id="arena-register" class="reflection-card">
-                    <h2 style="color: var(--gold);">⚜️ Identidad Estoica ⚜️</h2>
-                    <input type="text" id="reg-name" placeholder="Tu Nombre" class="st-input" style="width: 80%; margin: 20px 0; padding: 10px; background: #222; border: 1px solid #444; color: white; border-radius: 5px; text-align: center;">
-                    <button onclick="mockLogin()" class="cta-btn">Firmar el Pacto</button>
+                <div id="arena-register" class="reflection-card parchment-bg" style="text-align: center;">
+                    <h2 class="ink-text">📜 Firmar el Pacto</h2>
+                    <p class="ink-text-light">Graba tu nombre en la piedra para competir.</p>
+                    <input type="text" id="reg-name" placeholder="Tu Nombre de Guerrero" class="parchment-input">
+                    <input type="text" id="reg-ig" placeholder="@TuInstagram (Opcional)" class="parchment-input">
+                    <button onclick="registerUser()" class="cta-btn" style="width: 100%; margin-top:15px;">Entrar a la Arena</button>
                 </div>
+
                 <div id="arena-dashboard" style="display: none;">
-                    <h3 style="color: var(--gold); text-align: center;">🏆 Tabla de Honor</h3>
+                    <div class="arena-header">
+                        <h2 class="marble-title">🏛️ EL PANTEÓN 🏛️</h2>
+                        <p>Los estoicos más disciplinados de la orden.</p>
+                    </div>
+                    
                     <div class="podium-container">
                         <div class="podium-item">
                             <div class="crown">🥈</div>
                             <div class="avatar-circle" style="border-color: silver;">MA</div>
-                            <div class="podium-bar" style="height: 60px; background: silver;"></div>
+                            <div class="podium-bar" style="height: 80px; background: silver;"><span>250</span></div>
+                            <p>Marco</p>
                         </div>
-                        <div class="podium-item">
+                        <div class="podium-item big">
                             <div class="crown">👑</div>
-                            <div class="avatar-circle" style="border-color: var(--gold);">TÚ</div>
-                            <div class="podium-bar" style="height: 100px; background: var(--gold);"></div>
+                            <div class="avatar-circle" style="border-color: var(--gold);" id="podium-gold-avatar">TÚ</div>
+                            <div class="podium-bar" style="height: 120px; background: var(--gold); box-shadow: 0 0 20px var(--gold);">
+                                <span id="podium-gold-score">0</span>
+                            </div>
+                            <p id="podium-gold-name">Tú</p>
                         </div>
                         <div class="podium-item">
                             <div class="crown">🥉</div>
-                            <div class="avatar-circle" style="border-color: #cd7f32;">EP</div>
-                            <div class="podium-bar" style="height: 40px; background: #cd7f32;"></div>
+                            <div class="avatar-circle" style="border-color: #cd7f32;">SE</div>
+                            <div class="podium-bar" style="height: 60px; background: #cd7f32;"><span>120</span></div>
+                            <p>Séneca</p>
                         </div>
                     </div>
+                    <div class="leaderboard-list parchment-bg" id="leaderboard-content"></div>
                 </div>
             </section>
 
@@ -115,14 +148,20 @@
                     <div class="rank-visual" id="rank-icon-big">🛡️</div>
                     <div class="rank-info">
                         <h2 id="rank-title">Efebo</h2>
-                        <p>Total completado: <span id="mission-count">0</span> / 33</p>
+                        <p>Progreso: <span id="mission-count">0</span> / 33</p>
                         <div class="progress-bar">
                             <div id="rank-progress"></div>
                         </div>
                     </div>
                 </div>
+                
+                <h3 style="margin-top: 30px; border-bottom: 1px solid #333; color: var(--gold);">FASE 1: El Recluta (Cuerpo)</h3>
                 <div id="grid-fase-1" class="missions-grid"></div>
+                
+                <h3 style="margin-top: 30px; border-bottom: 1px solid #333; color: var(--gold);">FASE 2: El Guerrero (Mente)</h3>
                 <div id="grid-fase-2" class="missions-grid"></div>
+                
+                <h3 style="margin-top: 30px; border-bottom: 1px solid #333; color: var(--gold);">FASE 3: El Sabio (Espíritu)</h3>
                 <div id="grid-fase-3" class="missions-grid"></div>
             </section>
 
@@ -132,16 +171,19 @@
             </section>
 
             <section id="view-settings" class="view">
-                <div class="reflection-card" style="text-align: center;">
-                    <h2 style="color: #ff4444;">Zona de Control</h2>
-                    <button onclick="resetData()" style="background: #ff4444; color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer;">BORRAR PROGRESO</button>
+                <div class="settings-panel parchment-bg">
+                    <h2 class="ink-text">⚙️ Zona de Control</h2>
+                    <p class="ink-text-light">Aquí puedes reiniciar tu camino si sientes que has perdido el rumbo.</p>
+                    <button onclick="resetData()" class="danger-btn">⚠️ BORRAR TODO EL PROGRESO</button>
+                    <p style="margin-top:20px; font-size:0.8rem;">StoicQuest v1.0<br>by @777thementor</p>
                 </div>
             </section>
         </main>
     </div>
 
-    <audio id="paper-audio" src="https://www.soundjay.com/misc/sounds/paper-flip-1.mp3"></audio>
-    <audio id="sos-audio" src="https://www.soundjay.com/buttons/sounds/button-20.mp3"></audio>
+    <audio id="paper-audio" src="https://www.soundjay.com/misc/sounds/page-flip-01a.mp3"></audio> 
+    <audio id="levelup-audio" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio> 
+    <audio id="sos-audio" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
 
     <script src="reflections.js"></script>
     <script src="missions.js"></script>
